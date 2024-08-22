@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <link rel="icon" type="image/png" href="favicon.png"/>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Chinese Flashcards</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
+    <!--<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>-->
+</head>
+<body id='all'></body> <!--onload="cookieWarning()"-->
+
+          <!--<button class='plaintextbutton' onclick="loginButton()" >login</button>
+          <button class='plaintextbutton' onclick="createAccountButton()">create account</button>
+          <p class='statustracker' id='cookieinformdiv'>Cookies: ON</p> 
+          <button class='plaintextdisplay' id='loggedinstatusinformdiv' disabled='disabled' style='float:right;'>&nbsp logged out</button>-->
+     
+<!-- ------------------------------- modal zone start ----------------------------->
+
+<!--
+<div id="loginscreen" class="modal">
+  
+     <form class="modal-content animate"method="post">
+       <div class="flex-container">
+         <span onclick="document.getElementById('loginscreen').style.display='none'" class="close" title="Close Modal">&times;</span>
+       </div>
+
+       <div class="imgcontainer" style='font-size:26px'>
+         <label for="uname"><b>Username</b></label>
+         <input id='loginname'class='modalinput'type="text" placeholder="Enter Username" name="uname" required>
+   
+         <label for="psw"><b>Password</b></label>
+         <input id='loginpassword'class='modalinput' type="password" placeholder="Enter Password" name="psw" required>
+           <br></br>
+         <button class='button3'style='width:90%' type='button' onclick="loginForm()">Login</button>
+          <label id ='rememberlabel'>
+              <br></br>
+           <input  id='remembermecheckbox' class='checkbox'type="checkbox" checked="checked" name="remember"> Remember me
+         </label> 
+       </div>
+   
+       <div class="imgcontainer" style="background-color:#f1f1f1; justify-content: center; display:flex; padding-top: 20px; padding-bottom: 20px; font-size:24px;">
+         <button type="button" onclick="document.getElementById('loginscreen').style.display='none'" class="exitbutton">Cancel</button>
+         <span>&nbsp &nbsp &nbsp &nbsp</span>
+         <span class="psw">Forgot <a href="#" onclick="forgotPassword()">password?</a></span>
+       </div>
+     </form>
+   </div>
+
+   <div id="createaccountscreen" class="modal">
+  
+     <form class="modal-content animate"method="post">
+       <div class="flex-container">
+         <span onclick="document.getElementById('createaccountscreen').style.display='none'" class="close" title="Close Modal">&times;</span>
+       </div>
+
+       <div class="imgcontainer" style='font-size:26px'>
+         <label for="uname"><b>New Username</b></label>
+         <input id='createaccountname'class='modalinput'type="text" placeholder="Enter Username" name="uname" required>
+          <br></br>
+         <label for="psw"><b>Password (at least 6 characters)</b></label>
+         <input id='createaccountpassword'class='modalinput' type="password" placeholder="Enter Password" name="psw" required>
+         <br></br>
+
+          <label for="confpsw"><b>Confirm Password</b></label>
+          <input id='confirmcreateaccountpassword'class='modalinput' type="password" placeholder="Confirm Password" name="psw" required>
+          <br></br>
+
+         <button class='button3'style='width:90%' type='button' onclick="createAccount()">Create Account</button>
+       </div>
+   
+       <div class="imgcontainer" style="background-color:#f1f1f1; justify-content: center; display:flex; padding-top: 20px; padding-bottom: 20px; font-size:24px;">
+         <button type="button" onclick="document.getElementById('createaccountscreen').style.display='none'" class="exitbutton">Cancel</button>
+       </div>
+     </form>
+   </div>
+-->
+
+<!-- ------------------------------- modal zone end ------------------------------->
+
+
+<!-- test page div -->
+     <div id='testdiv' style='display:none'>
+          <div class="centereddiv">
+               <p class="handisplay" id="examdisplay">&nbsp &nbsp欢迎！</p>
+          </div>
+          <div class="centereddiv">
+               <p id="testpinyin" style='font-size:26px; font-family:Arial, Helvetica, sans-serif; justify-content:center;'>&nbsp</p>
+          </div>
+          <div class='centereddiv'>
+               <button class="revealtest" id="revealtest" onclick="revealTest()" style='display:block'>Show Pinyin and English</button>
+           </div>  
+          <div class='centereddiv'>
+              <button class="unpressedknown" id="known" onclick="known()" style='display:none'> &#10004;</button>
+              <button class="unpressedunknown" id="unknown" onclick="unknown()" style='display:none'>&#10006;</button>
+          </div>  
+          <div class="centereddiv">
+               <p class='testscoretracker' id='score'>Score: &nbsp 0/0<br></br></p>
+          </div>      
+          <div class="centereddiv">
+               <div class="flex-container">
+                    <button class='exitbutton' onclick="exit()">Quit Test</button>   
+                    <p class= "extrasmalldisplay" id="lvldisplay2">&nbsp HSK Level: 1 &nbsp &nbsp 汉语水平考试 （一级）</p>
+                    <button class="button5" onclick="onlineTestMenu()">New Test</button>   
+               </div>
+          </div>
+     </div>
+
+<!-- pinyin test page div -->
+<div id='pintestdiv' style='display:none'>
+     <div class="centereddiv">
+          <p class="handisplay" id="pinexamdisplay">&nbsp &nbsp欢迎！</p>
+     </div>
+     <div class="centereddiv">
+          <p id="pintestpinyin" style='font-size:26px; font-family:Arial, Helvetica, sans-serif; justify-content:center;'>&nbsp</p>
+     </div>
+     <div class='centereddiv' id='pinyininputboxes' style='display:flex;'>
+            <label for="inputpinyin" style='font-size:28px; font-family:Arial, Helvetica, sans-serif; justify-content:center; text-align: center; align-self: center;'>Input Pinyin: &nbsp</label>
+            <input type="text" id="inputpinyin" name="inputpinyin" required minlength="1" maxlength="20" style='font-size:30px; font-family:Arial, Helvetica, sans-serif; height:120px; width:350px;'>
+            &nbsp &nbsp <button onclick='submitPinyin()' style='font-size:26px; cursor:pointer;     '>&nbsp&nbsp Submit &nbsp (⏎) &nbsp </button>
+     </div>
+     <div class='centereddiv' id='pinyintestresults'> 
+          <p id="pinyinresultstable" style='display:none; font-size:30px; text-align:center; font-family: Arial, Helvetica, sans-serif;'>&nbsp &nbsp欢迎！</p>
+     </div>
+     <div class="centereddiv">
+          <p class='testscoretracker' id='pinscore'>Score: &nbsp 0/0<br></br></p>
+     </div>      
+     <div class="centereddiv">
+          <div class="flex-container">
+               <button class='exitbutton' onclick="exit()">Quit Test</button>   
+               <p class= "extrasmalldisplay" id="lvldisplay3">&nbsp HSK Level: 1 &nbsp &nbsp 汉语水平考试 （一级）</p>
+               <button class="button5" onclick="onlineTestMenu()">New Test</button>  &nbsp
+               <button class="button3" onclick="revealInstructions()">Intructions</button>   
+          </div>
+     </div>
+     <br></br>
+     <div class="centereddiv" id='pinyinbuttons' style="display:none">
+         <table>
+               <tr>
+                   <td> <button></button> </td>
+                   <td> <button></button> </td>
+                   <td> <button></button> </td>
+                   <td> <button></button> </td>
+               </tr>
+               <tr>
+                    <td> <button></button> </td>
+                   <td> <button></button> </td>
+                   <td> <button></button> </td>
+                   <td> <button></button> </td>
+               </tr>
+               <tr>
+                    <td> <button></button> </td>
+                   <td> <button></button> </td>
+                   <td> <button></button> </td>
+                   <td> <button></button> </td>
+               </tr>
+               <tr>
+                    <td> <button></button> </td>
+                   <td> <button></button> </td>
+                   <td> <button></button> </td>
+                   <td> <button></button> </td>
+               </tr>
+               <tr>
+                    <td> <button></button> </td>
+                   <td> <button></button> </td>
+                   <td> <button></button> </td>
+                   <td> <button></button> </td>
+               </tr>
+         </table>
+     </div>
+     <br></br>
+     <div class='centereddiv' id='instructions' style='margin-left: 15%; margin-right:15%; font-size:24px; font-family: Arial, Helvetica, sans-serif; display:none;'>
+          Instead of accents, you may use the numbers 1-4 to indicate the appropriate tone.
+          Write the number after the pinyin word. Do not write a number for neutral tones.
+          For example, you may input 我 (wŏ) as 'wo3', or 他 (tā) as 'ta1'.
+          中国 (zhōngguó) can be input as 'zhong1guo2'. Neutral tones have no number: 的 (de) must be input as 'de'.
+          Umlauts are ignored, but the tone is not: 女 (nǚ) may be input as 'nǚ', 'nǔ', 'nǔ3', or 'nu3'. Spaces are ignored.
+          Empty submissions are not processed. Miscellaneous characters will likely result in a fail.
+       </div>
+</div>
+
+ <!-- Test Menu Page -->
+     <div id='testmenudiv' style='display:none;'> 
+          <br></br>
+          <div class="centereddiv">
+               <p style='font-size:22px; font-family:Arial, Helvetica, sans-serif; justify-content:center;'>SELECT TEST TYPE:</p>
+          </div>
+          <div class="centereddiv">
+               <form  id="testType">
+                  <input id="pinyintest" style="height:35px; width:35px;" onclick="setTestTypePinyin()" type="radio" name="level1" value="level1" checked> Pinyin Input Test 
+                  <input id="honourtest" style="height:35px; width:35px;" onclick="setTestTypeHonour()" type="radio" name="level1" value="level1" > Self-Assessed Test
+              </form>
+          </div>
+          <br></br>
+
+          <div class="centereddiv">
+               <p style='font-size:22px; font-family:Arial, Helvetica, sans-serif; justify-content:center;'>SELECT TEST LENGTH:</p>
+          </div>
+          <div class="centereddiv">
+               <form  id="testLength"> 
+                  <input id="test10" style="height:35px; width:35px;" onclick="setLengthTen()" type="radio" name="level1" value="level1" checked> 10 words
+                  <input id="test20" style="height:35px; width:35px;" onclick="setLengthTwenty()" type="radio" name="level1" value="level2"> 20 words
+                  <input id="test50" style="height:35px; width:35px;" onclick="setLengthFifty()" type="radio" name="level1" value="level3"> 50 words
+                  <input id="test100" style="height:35px; width:35px;" onclick="setLengthHundred()" type="radio" name="level1" value="level4"> 100 words
+              </form>
+          </div>
+          <br></br>
+          <div class="centereddiv">
+               <p style='font-size:22px; font-family:Arial, Helvetica, sans-serif; justify-content:center;'>SELECT HSK LEVEL:</p>
+          </div>
+          <div class="centereddiv">
+               <form  id="testradiolevel"> 
+                  <input id="testradio1" style="height:35px; width:35px;" onclick="setLevel1()" type="radio" name="level1" value="level1" checked> Level 1
+                  <input id="testradio2" style="height:35px; width:35px;" onclick="setLevel2()" type="radio" name="level1" value="level2"> Level 2
+                  <input id="testradio3" style="height:35px; width:35px;" onclick="setLevel3()" type="radio" name="level1" value="level3"> Level 3
+                  <input id="testradio4" style="height:35px; width:35px;" onclick="setLevel4()" type="radio" name="level1" value="level4"> Level 4
+                  <input id="testradio5" style="height:35px; width:35px;" onclick="setLevel5()" type="radio" name="level1" value="level5"> Level 5
+                  <input id="testradio6" style="height:35px; width:35px;" onclick="setLevel6()" type="radio" name="level1" value="level6"> Level 6
+              </form>
+          </div>
+          <br></br>
+          <div class="centereddiv">
+          <button class="button5" onclick="onlineTestLarge()">Start Test</button>
+           </div>
+           <br></br>
+          <div class="centereddiv">
+               <button class='exitbutton' onclick="exit()" style='padding: 9px; font-size: 36px; color:white;'>&nbsp &#8678 &nbsp</button>   
+          </div>
+     </div>
+
+<!--  'home page div' is the 'superdiv'-->
+     <div id='superdiv' style='display:block'>
+    <div class="centereddiv">
+         <p class="handisplay" id="handisplay">&nbsp &nbsp欢迎！</p>
+    </div>
+    <div class="centereddiv">
+         <!-- <button onclick="testDatabase()">testDatabase</button> -->
+         <button class="unpressed" id="pindisplay" onclick="showPinyin()" style="height:100px; width:200px;">Pinyin</button>
+         <button class="unpressed" id="engdisplay" onclick="showEnglish()" style="height:100px; width:200px;">English</button>
+    </div>
+    <br></br>
+    <div class="centereddiv">
+         <button class="button3" onclick="randomCharacter()">random word</button>
+    </div>
+    <div class="centereddiv">
+         <p class= "smalldisplay" id="lvldisplay">HSK LEVEL: 1 &nbsp &nbsp 汉语水平考试 （一级）</p>
+    </div>
+    <div class="centereddiv">
+         <form  id="radiolevel">
+            <input id="radio1" style="height:35px; width:35px;" onclick="setLevel1()" type="radio" name="level1" value="level1" checked> Level 1
+            <input id="radio2" style="height:35px; width:35px;" onclick="setLevel2()" type="radio" name="level1" value="level2"> Level 2
+            <input id="radio3" style="height:35px; width:35px;" onclick="setLevel3()" type="radio" name="level1" value="level3"> Level 3
+            <input id="radio4" style="height:35px; width:35px;" onclick="setLevel4()" type="radio" name="level1" value="level4"> Level 4
+            <input id="radio5" style="height:35px; width:35px;" onclick="setLevel5()" type="radio" name="level1" value="level5"> Level 5
+            <input id="radio6" style="height:35px; width:35px;" onclick="setLevel6()" type="radio" name="level1" value="level6"> Level 6
+        </form>
+    </div>
+    <br></br>
+    <div class="centereddiv">
+          <button class="button4" onclick="genTwenty()">Small Printable Test</button>
+          <button class="button4" onclick="genHundred()">Large Printable Test</button>
+    </div>
+    <br></br>
+    
+    <div class="centereddiv">
+       <button class="button5" onclick="onlineTestMenu()">Online Test</button>
+     </div>
+
+     <br></br>
+     <br></br>
+     <br></br>
+     </div>
+     </body>
+<script src='hskraw.js'></script>
+<script src='main.js'></script>
+</html>
